@@ -1,4 +1,4 @@
-define('calc', ['jquery'], function ($) {
+define('calc', ['jquery', 'underscore'], function () {
 	var _defaults = {
 		dataPath: 'results.json',
 		displayType: 'alert',
@@ -7,6 +7,8 @@ define('calc', ['jquery'], function ($) {
 	};
     return function () {
         // private variables and methods
+		var resultTpl = _.template("<br/><strong><%=result%></strong>");
+		var resultTplAlert = _.template("Test passed! Result - <%=result%></strong>");
         var options = {};
 		this.processResult = function (params) {
 			$.extend(options, _defaults, params);
@@ -36,10 +38,9 @@ define('calc', ['jquery'], function ($) {
 		var displayResult = function (result) {
 			if(options.displayType == 'alert'){
 				alert(result);
-				console.log(options.element);
-				$(options.element).html('Test passed!');
+				$(options.element).html(resultTpl({'result':result}));
 			}else{
-				$(options.element).html(result);
+				$(options.element).html(resultTplAlert({'result':result}));
 			}
 		};
 		return this;

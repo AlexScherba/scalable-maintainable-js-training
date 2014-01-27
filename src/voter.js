@@ -1,4 +1,4 @@
-define('voter', ['jquery', 'EventBus'], function($, EventBus){
+define('voter', ['jquery', 'EventBus', 'underscore'], function($, EventBus){
 	var _defaults = {
 		currentQuestion: 0,
 		qestions: {}
@@ -6,6 +6,7 @@ define('voter', ['jquery', 'EventBus'], function($, EventBus){
 	
     return function (el, params) {
         // private variables and methods
+		var questionTpl = _.template("<input type='radio' name='answer' value='<%=value%>'><%=text%></input></br>");
         var options = {};
 		var sum = 0;
         var element;
@@ -35,7 +36,8 @@ define('voter', ['jquery', 'EventBus'], function($, EventBus){
 			element.find('#answers').empty();
 
 			$.each(question.answers, function(key, val){
-				element.find('#answers').append('<input type="radio" name="answer" value="'+question.points[key]+'">'+val+'</input></br>');
+				questionTpl({value: question.points[key], text: val});
+				element.find('#answers').append(questionTpl({value: question.points[key], text: val}));
 			});
 
 			element.find('input').on('click', function(el) {
@@ -48,9 +50,7 @@ define('voter', ['jquery', 'EventBus'], function($, EventBus){
 			displayQuestion();
 		};
 		var processResult = function () {
-			console.log(element);
 			EventBus.trigger(options.calcResultsCallback, {'element':element, 'result':sum, 'displayType':options.displayType});
-			//options.calcResultsCallback({'element':element, 'result':sum, 'displayType':options.displayType});
 		};
 		this.init(el, params);
     };

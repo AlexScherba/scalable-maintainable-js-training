@@ -4,11 +4,15 @@ require.config({
 		jquery: 'bower_components/jquery/jquery',
         calc: 'src/calc',
 		voter: 'src/voter',
-		EventBus: 'src/mediator'
+		EventBus: 'src/mediator',
+		underscore: 'bower_components/underscore'
     },
 	shim: {
 		'jquery': {
             exports: 'jQuery'
+        },
+		'underscore': {
+            exports: '_'
         }
 	}
 });
