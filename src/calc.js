@@ -1,7 +1,4 @@
-var APP = APP || {};
- 
-// module-"class" (constructor)
-APP.Calc = (function (APP, $, undefined) {
+define('calc', ['jquery'], function ($) {
 	var _defaults = {
 		dataPath: 'results.json',
 		displayType: 'alert',
@@ -39,6 +36,7 @@ APP.Calc = (function (APP, $, undefined) {
 		var displayResult = function (result) {
 			if(options.displayType == 'alert'){
 				alert(result);
+				console.log(options.element);
 				$(options.element).html('Test passed!');
 			}else{
 				$(options.element).html(result);
@@ -46,4 +44,4 @@ APP.Calc = (function (APP, $, undefined) {
 		};
 		return this;
     };
-}(APP, jQuery));
+});

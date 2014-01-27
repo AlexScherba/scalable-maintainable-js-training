@@ -1,8 +1,4 @@
-var APP = APP || {};
- 
-// module-"class" (constructor)
-APP.Voter = (function (APP, $, undefined) {
-    
+define('voter', ['jquery', 'EventBus'], function($, EventBus){
 	var _defaults = {
 		currentQuestion: 0,
 		qestions: {}
@@ -32,6 +28,7 @@ APP.Voter = (function (APP, $, undefined) {
 				processResult();
 				return;
 			}
+			
             var question = options.questions[options.currentQuestion];
 			element.find('#question').html(question.question);
 
@@ -51,9 +48,10 @@ APP.Voter = (function (APP, $, undefined) {
 			displayQuestion();
 		};
 		var processResult = function () {
-			APP.EventBus.trigger(options.calcResultsCallback, {'element':element, 'result':sum, 'displayType':options.displayType});
+			console.log(element);
+			EventBus.trigger(options.calcResultsCallback, {'element':element, 'result':sum, 'displayType':options.displayType});
 			//options.calcResultsCallback({'element':element, 'result':sum, 'displayType':options.displayType});
 		};
 		this.init(el, params);
     };
-}(APP, jQuery));
+});
