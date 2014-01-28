@@ -21,10 +21,10 @@ require.config({
 	}
 });
 
-require(["jquery", "voter", 'EventBus', 'modernizr'], function($, Voter, EventBus) {
+require(["jquery", "voter", 'EventBus', 'modernizr'], function($, Voter, EventBus, Modernizr) {
 	
 	Modernizr.load([{
-		test: /*Modernizr.websockets &&*/ window.JSON,
+		test: Modernizr.websockets && window.JSON,
 		nope: '../bower_components/json3.js',
 		complete: appInit
 	}]);
